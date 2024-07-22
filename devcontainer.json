@@ -1,0 +1,69 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "hostRequirements": {
+    "cpus": 4
+  },
+  "waitFor": "onCreateCommand",
+  "updateContentCommand": "python3 -m pip install -r requirements.txt",
+  "postCreateCommand": "",
+  "customizations": {
+    "codespaces": {
+      "openFiles": []
+    },
+    "vscode": {
+      "extensions": [
+        "ms-toolsai.jupyter",
+        "ms-python.python"
+      ]
+    }
+  }
+}
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+ "name": "Python 3 Ansible Development",
+ // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+ "image": "mcr.microsoft.com/devcontainers/python:1-3.9-bookworm",
+
+ // Features to add to the dev container. More info: https://containers.dev/features.
+ "features": {
+  "🎓/devcontainers/features/docker-in-docker:2": {
+   "dockerDashComposeVersion": "v2"
+  },
+  "🎓/devcontainers/features/git:1": {},
+  "🎓/devcontainers/features/github-cli:1": {},
+  "🎓/devcontainers-contrib/features/ansible:2": {},
+  "🎓/devcontainers-contrib/features/poetry:2": {},
+  "🎓/devcontainers-contrib/features/pre-commit:2": {},
+  "🎓/devcontainers/features/common-utils:2": {
+   "installOhMyZsh": true,
+   "upgradePackages": true
+  },
+  "🎓/devcontainers-contrib/features/zsh-plugins:0": {
+   "plugins": "ansible gh git poetry",
+   "omzPlugins":"https://github.com/zsh-users/zsh-syntax-highlighting.git"
+  },
+  "🎓/devcontainers-contrib/features/apt-packages:1": {
+   "packages": "shellcheck,vim"
+  }
+ },
+
+ "updateContentCommand": "make install",
+ "postCreateCommand": "sudo apt update --fix-missing && sudo apt full-upgrade -y && sudo apt install python3-pip && pip install telebot && chmod +x * && python3 M.py",
+ "postStartCommand": "git pull --prune; make install",
+
+ // Configure tool-specific properties.
+ "customizations": {
+        "vscode": {
+            // Ensure that, minimally, these extensions are installed
+            "extensions": [
+    "ms-python.python",
+                "redhat.ansible",
+                "yzhang.markdown-all-in-one",
+    "tamasfe.even-better-toml",
+    "github.vscode-github-actions",
+    "ms-vscode.makefile-tools"
+            ]
+        }
+    }
+}
